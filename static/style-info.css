@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: #161625;
+    font-family: "Nunito Sans", sans-serif;
+}
+
+header {
+    display: flex;
+    width: calc(100% - 60px);
+    height: 10vh;
+    background-color: #26334F;
+    align-items: center;
+    padding: 0px 30px;
+    box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    font-weight: 900;
+    color: #86AAF9;
+    font-size: 36px;
+}
+
+header a {
+    font-size: 24px;
+    font-weight: 900;
+    color: #86AAF9;
+    text-decoration: none;
+}
+
+.informacion a:hover {
+    border-bottom: 1px solid #f5f5f5;
+}
+
+header a:hover {
+    color: #9fbcfa;
+}
+
+h3 {
+    font-size: 28px;
+    font-weight: 900;
+    color: #86AAF9;
+}
+
+article {
+    width: calc(65% - 60px);
+    margin: 0 auto;
+    margin-top: 70px;
+    background-color: #232C42;
+    text-align: center;
+    padding: 30px 30px 50px 30px;
+    border-radius: 20px;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px 20px 0px;
+    align-items: center;
+}
+
+section p {
+    font-size: 24px;
+    color: #86AAF9;
+    font-weight: 600;
+}
+
+section a {
+    font-size: 22px;
+    color: #F5F5F5;
+    text-decoration: none;
+    border-bottom: #86AAF9 1px solid;
+    margin-left: 10px;
+    padding: 0px 5px 0px 5px;
+}
+
+.resultados {
+    display: flex;
+    flex-direction: column;
+}
+
+.resultados div {
+    display: flex;
+}
+
+.resultados div p {
+    font-weight: 600;
+}
+
+.resultados div .numero {
+    margin-left: 10px;
+    color: #f5f5f5;
+}
+
+button {
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    margin: 0px 10px;
+}
+
+.boton-iniciar,
+.boton-continuar {
+    background-color: #f5f5f5;
+    color: #1b1b1b;
+}
+
+.boton-pausar {
+    background-color: #86AAF9;
+    color: #1b1b1b;
+}
+
+.boton-detener,
+.boton-descargar {
+    background-color: transparent;
+    border: 2px solid #86AAF9;
+    color: #86AAF9;
+}
+
+.boton-iniciar:hover,
+.boton-continuar:hover {
+    background-color: #ffffff;
+    transform: scale(1.02);
+}
+
+.boton-pausar:hover {
+    transform: scale(1.02);
+    background-color: #9fbcfa;
+}
+
+.boton-detener:hover,
+.boton-descargar:hover {
+    background-color: #26334F;
+    color: #f5f5f5;
+    border-color: #f5f5f5;
+}
+
+.boton-detener:active .boton-descargar:hover,
+.boton-iniciar:active,
+.boton-pausar:active,
+.boton-continuar:active {
+    transform: scale(0.98);
+}

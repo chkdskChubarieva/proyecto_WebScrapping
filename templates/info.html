@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebScrapping</title>
+    <link rel="stylesheet" href="../static/style-info.css">
+</head>
+
+<body>
+    <header>
+        <a href="./index.html">Bussiness Intelligence y Big Data</a>
+    </header>
+    <article class="panel">
+        <h1>Web Scrapping - Listo para iniciar</h1>
+        <section class="informacion">
+            <p>link de la pagina:</p>
+            <a href="https://clasificados.lostiempos.com/inmuebles"
+                target="_blank">https://clasificados.lostiempos.com/inmuebles</a>
+        </section>
+
+        <button type="button" class="boton-iniciar" id="boton-iniciar" onclick="iniciar()">Iniciar</button>
+        <button type="button" class="boton-pausar" id="boton-pausar" style="display:none;"
+            onclick="pausarScrapping()">Pausar</button>
+        <button type="button" class="boton-continuar" id="boton-continuar" style="display:none;"
+            onclick="continuarScrapping()">Continuar</button>
+        <button type="button" class="boton-detener" id="boton-detener" style="display:none;"
+            onclick="detenerScrapping()">Detener</button>
+        <button type="button" class="boton-descargar" id="boton-descargar"
+            onclick="descargarScrapping()">Descargar</button>
+
+    </article>
+</body>
+
+<script>
+    // Función para mostrar los botones de pausar y detener y ocultar el de iniciar
+    function mostrarBotones() {
+        document.getElementById('boton-pausar').style.display = 'inline-block';
+        document.getElementById('boton-detener').style.display = 'inline-block';
+        document.getElementById('boton-descargar').style.display = 'none';
+        document.getElementById('boton-iniciar').style.display = 'none';
+    }
+
+    // Función para ocultar los botones de pausar y detener y mostrar el de iniciar
+    function ocultarBotones() {
+        document.getElementById('boton-pausar').style.display = 'none';
+        document.getElementById('boton-continuar').style.display = 'none';
+        document.getElementById('boton-detener').style.display = 'none';
+        document.getElementById('boton-iniciar').style.display = 'inline-block';
+    }
+
+    // Función para mostrar los botones de descargar e iniciar y ocultar los de pausar y continuar
+    function mostrarBotonesDescargar() {
+        document.getElementById('boton-descargar').style.display = 'inline-block';
+        document.getElementById('boton-iniciar').style.display = 'inline-block';
+        document.getElementById('boton-pausar').style.display = 'none';
+        document.getElementById('boton-continuar').style.display = 'none';
+        document.getElementById('boton-detener').style.display = 'none';
+    }
+
+    // Agregamos un event listener al botón de iniciar
+    document.getElementById('boton-iniciar').addEventListener('click', function () {
+        // Llamamos a la función para mostrar los botones
+        mostrarBotones();
+        // Llamamos a la función para iniciar el scraping
+        iniciar();
+    });
+
+    // Agregamos event listeners a los botones de pausar y detener
+    document.getElementById('boton-pausar').addEventListener('click', function () {
+        pausarScrapping();
+    });
+
+    document.getElementById('boton-detener').addEventListener('click', function () {
+        detenerScrapping();
+    });
+
+    // Función para iniciar el scraping
+    function iniciar() {
+        document.querySelector('h1').innerText = 'Web Scrapping - Recolectando datos...';
+        window.location.href = './info/iniciar';
+    }
+
+    // Función para detener el scraping
+    function detenerScrapping() {
+        fetch('/info/detener')
+            .then(response => {
+                if (response.ok) {
+                    document.querySelector('h1').innerText = 'Web Scrapping - Recolección finalizada';
+                    // Detención exitosa, puedes agregar cualquier lógica adicional aquí si es necesario
+                    console.log('Web scraping detenido.');
+                    // Cambiar el texto del botón 'Iniciar' a 'Iniciar de nuevo'
+                    document.getElementById('boton-iniciar').innerText = 'Iniciar de nuevo';
+                    // Llamamos a la función para mostrar los botones de descargar e iniciar
+                    mostrarBotonesDescargar();
+                } else {
+                    // Manejar errores si es necesario
+                    console.error('Error al detener el web scraping.');
+                }
+            })
+            .catch(error => console.error('Error de red:', error));
+    }
+
+    // Función para pausar el scraping
+    function pausarScrapping() {
+        fetch('/info/pausar')
+            .then(response => {
+                if (response.ok) {
+                    document.querySelector('h1').innerText = 'Web Scrapping - Recolección pausada';
+
+                    // Pausa exitosa, cambiamos el botón
+                    document.getElementById('boton-pausar').style.display = 'none';
+                    document.getElementById('boton-continuar').style.display = 'inline-block';
+                    console.log('Web scraping pausado.');
+                } else {
+                    // Manejar errores si es necesario
+                    console.error('Error al pausar el web scraping.');
+                }
+            })
+            .catch(error => console.error('Error de red:', error));
+    }
+
+    // Función para continuar el scraping
+    function continuarScrapping() {
+        fetch('/info/continuar')
+            .then(response => {
+                if (response.ok) {
+                    document.querySelector('h1').innerText = 'Web Scrapping - Recolectando datos...';
+                    // Continuar exitoso, cambiamos el botón
+                    document.getElementById('boton-pausar').style.display = 'inline-block';
+                    document.getElementById('boton-continuar').style.display = 'none';
+                    console.log('Web scraping continuado.');
+                } else {
+                    // Manejar errores si es necesario
+                    console.error('Error al continuar el web scraping.');
+                }
+            })
+            .catch(error => console.error('Error de red:', error));
+    }
+
+    function descargarScrapping() {
+        fetch('/info/descargar', {
+            method: 'POST',
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Manejar la respuesta del servidor y descargar el archivo
+                    return response.blob();
+                } else {
+                    console.error('Error en la descarga');
+                }
+            })
+            .then(blob => {
+                // Crear una URL para el objeto blob
+                const url = window.URL.createObjectURL(blob);
+                // Crear un enlace y hacer clic en él para iniciar la descarga
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'datos_web_scrapping.xlsx'; // Nombre del archivo
+                document.body.appendChild(a);
+                a.click();
+                // Liberar el objeto URL
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+</html>
